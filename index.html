@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jessen - Portfolio Profesional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+          --accent-primary: #ff6b35;
+          --accent-secondary: #00d9ff;
+          --bg-dark: #0a0a0a;
+          --bg-card: #141414;
+          --text-primary: #e8e8e8;
+          --text-muted: #8a8a8a;
+        }
+
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          overflow-x: hidden;
+          background: var(--bg-dark);
+          color: var(--text-primary);
+          font-family: 'Outfit', sans-serif;
+        }
+
+        .font-display {
+          font-family: 'Crimson Pro', serif;
+        }
+
+        .font-body {
+          font-family: 'Outfit', sans-serif;
+        }
+
+        .grain {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          pointer-events: none;
+          opacity: 0.03;
+          z-index: 100;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .hero-gradient {
+          position: absolute;
+          top: -50%;
+          right: -20%;
+          width: 800px;
+          height: 800px;
+          background: radial-gradient(circle, rgba(255,107,53,0.15) 0%, transparent 70%);
+          filter: blur(80px);
+          animation: float 20s ease-in-out infinite;
+        }
+
+        .hero-gradient-2 {
+          position: absolute;
+          bottom: -30%;
+          left: -10%;
+          width: 600px;
+          height: 600px;
+          background: radial-gradient(circle, rgba(0,217,255,0.1) 0%, transparent 70%);
+          filter: blur(80px);
+          animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(-30px, 30px) scale(1.1); }
+        }
+
+        .fade-in {
+          opacity: 0;
+          transform: translateY(30px);
+          animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        .project-card {
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .project-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,107,53,0.1), transparent);
+          transition: left 0.6s;
+        }
+
+        .project-card:hover::before {
+          left: 100%;
+        }
+
+        .project-card:hover {
+          transform: translateY(-8px);
+          border-color: var(--accent-primary);
+        }
+
+        .skill-badge {
+          transition: all 0.3s ease;
+        }
+
+        .skill-badge:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 16px rgba(255,107,53,0.2);
+        }
+
+        .nav-link {
+          position: relative;
+          transition: color 0.3s ease;
+          text-decoration: none;
+          color: var(--text-primary);
+        }
+
+        .nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: var(--accent-primary);
+          transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+          color: var(--accent-primary);
+        }
+
+        .nav-link:hover::after {
+          width: 100%;
+        }
+
+        .accent-line {
+          width: 60px;
+          height: 3px;
+          background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+          margin: 1.5rem 0;
+        }
+
+        /* Navigation */
+        nav {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 50;
+          background: rgba(10, 10, 10, 0.8);
+          backdrop-filter: blur(16px);
+          border-bottom: 1px solid #1a1a1a;
+        }
+
+        nav .container {
+          max-width: 1152px;
+          margin: 0 auto;
+          padding: 1rem 1.5rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        nav .logo {
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+
+        nav .nav-links {
+          display: flex;
+          gap: 2rem;
+          font-size: 0.875rem;
+        }
+
+        /* Hero Section */
+        #hero {
+          position: relative;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0 1.5rem;
+          overflow: hidden;
+        }
+
+        .hero-container {
+          max-width: 1152px;
+          margin: 0 auto;
+          display: grid;
+          gap: 3rem;
+          align-items: center;
+          position: relative;
+          z-index: 10;
+        }
+
+        .hero-content h1 {
+          font-size: 4rem;
+          font-weight: bold;
+          margin-bottom: 1.5rem;
+          line-height: 1.1;
+        }
+
+        .hero-content p {
+          font-size: 1.125rem;
+          color: var(--text-muted);
+          margin-bottom: 2rem;
+          max-width: 32rem;
+        }
+
+        .hero-graphic {
+          position: relative;
+          width: 320px;
+          height: 320px;
+          margin: 0 auto;
+        }
+
+        .hero-graphic .bg-rotate {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, rgba(255,107,53,0.2), rgba(0,217,255,0.2));
+          border-radius: 0.5rem;
+          transform: rotate(6deg);
+        }
+
+        .hero-graphic .bg-main {
+          position: absolute;
+          inset: 0;
+          background: var(--bg-card);
+          border: 1px solid #1a1a1a;
+          border-radius: 0.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        /* Buttons */
+        .btn {
+          display: inline-block;
+          padding: 0.75rem 2rem;
+          font-weight: 500;
+          border-radius: 0.125rem;
+          text-decoration: none;
+          transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+          background: var(--accent-primary);
+          color: white;
+        }
+
+        .btn-primary:hover {
+          background: #ff5722;
+          box-shadow: 0 10px 25px rgba(255,107,53,0.3);
+        }
+
+        /* Sections */
+        section {
+          padding: 6rem 1.5rem;
+        }
+
+        .section-container {
+          max-width: 1152px;
+          margin: 0 auto;
+        }
+
+        .section-title {
+          font-size: 3rem;
+          font-weight: bold;
+          margin-bottom: 1.5rem;
+        }
+
+        /* About Section */
+        .about-grid {
+          display: grid;
+          gap: 2rem;
+          margin-top: 3rem;
+        }
+
+        .about-content {
+          font-size: 1.125rem;
+          color: var(--text-muted);
+          line-height: 1.7;
+        }
+
+        .about-content p {
+          margin-bottom: 1rem;
+        }
+
+        .stat-card {
+          padding: 1.5rem;
+          border: 1px solid #1a1a1a;
+          border-radius: 0.125rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .stat-card h3 {
+          font-size: 1.25rem;
+          font-weight: 600;
+          margin: 1rem 0 0.5rem 0;
+        }
+
+        .stat-card p {
+          color: var(--text-muted);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+          display: grid;
+          gap: 2rem;
+          margin-top: 3rem;
+        }
+
+        .project-card {
+          padding: 2rem;
+          background: var(--bg-card);
+          border: 1px solid #1a1a1a;
+          border-radius: 0.125rem;
+        }
+
+        .project-card h3 {
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 1rem;
+        }
+
+        .project-card p {
+          color: var(--text-muted);
+          margin-bottom: 1.5rem;
+          line-height: 1.6;
+        }
+
+        .tech-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+        }
+
+        .tech-tag {
+          padding: 0.25rem 0.75rem;
+          font-size: 0.875rem;
+          background: var(--bg-dark);
+          border: 1px solid rgba(255,107,53,0.3);
+          color: var(--accent-primary);
+          border-radius: 0.125rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+          display: grid;
+          gap: 2rem;
+          margin-top: 3rem;
+        }
+
+        .skill-category h3 {
+          font-size: 1.25rem;
+          font-weight: 600;
+          margin-bottom: 1rem;
+          color: var(--accent-secondary);
+        }
+
+        .skill-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+
+        .skill-badge {
+          padding: 0.5rem 1rem;
+          background: var(--bg-dark);
+          border: 1px solid #1a1a1a;
+          border-radius: 0.125rem;
+          font-size: 0.875rem;
+          cursor: pointer;
+        }
+
+        /* Contact Section */
+        #contact {
+          text-align: center;
+        }
+
+        #contact p {
+          font-size: 1.125rem;
+          color: var(--text-muted);
+          margin-bottom: 3rem;
+          max-width: 42rem;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .social-links {
+          display: flex;
+          justify-content: center;
+          gap: 1.5rem;
+          margin-bottom: 3rem;
+        }
+
+        .social-link {
+          padding: 1rem;
+          background: var(--bg-card);
+          border: 1px solid #1a1a1a;
+          border-radius: 0.125rem;
+          transition: all 0.3s ease;
+          text-decoration: none;
+          color: var(--accent-primary);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .social-link:hover {
+          border-color: var(--accent-primary);
+          transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+          padding: 2rem 1.5rem;
+          border-top: 1px solid #1a1a1a;
+          background: var(--bg-card);
+          text-align: center;
+          color: var(--text-muted);
+        }
+
+        /* Icons using Unicode */
+        .icon-briefcase::before { content: "💼"; }
+        .icon-user::before { content: "👤"; }
+        .icon-code::before { content: "💻"; }
+        .icon-mail::before { content: "✉️"; }
+        .icon-github::before { content: "🔗"; }
+        .icon-linkedin::before { content: "🔗"; }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+          .hero-container {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          
+          .about-grid {
+            grid-template-columns: 2fr 1fr;
+          }
+          
+          .projects-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          
+          .project-card.featured {
+            grid-column: span 2;
+          }
+          
+          .skills-grid {
+            grid-template-columns: repeat(4, 1fr);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .hero-content h1 {
+            font-size: 2.5rem;
+          }
+          
+          .section-title {
+            font-size: 2rem;
+          }
+          
+          nav .nav-links {
+            gap: 1rem;
+            font-size: 0.75rem;
+          }
+          
+          .hero-graphic {
+            display: none;
+          }
+          
+          .hero-gradient, .hero-gradient-2 {
+            width: 400px;
+            height: 400px;
+          }
+        }
+
+        .mx-auto {
+          margin-left: auto;
+          margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="grain"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo font-display">
+                <span style="color: var(--accent-primary);">J</span>essen
+            </div>
+            <div class="nav-links font-body">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-gradient"></div>
+        <div class="hero-gradient-2"></div>
+        
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="font-body delay-1 fade-in" style="font-size: 0.875rem; color: var(--accent-secondary); margin-bottom: 1rem; letter-spacing: 0.1em;">
+                    SR. CONSULTANT / FRONTEND ENGINEER
+                </div>
+                <h1 class="font-display delay-2 fade-in">
+                    Transformando
+                    <span style="display: block; color: var(--accent-primary); margin-top: 0.5rem;">Ideas</span>
+                    <span style="display: block;">en Código</span>
+                </h1>
+                <div class="accent-line delay-3 fade-in"></div>
+                <p class="delay-4 fade-in">
+                    Especializado en desarrollo full-stack con React, Node.js y arquitecturas escalables. 
+                    Creando experiencias digitales que combinan diseño elegante con código robusto.
+                </p>
+                <div class="delay-5 fade-in">
+                    <a href="#contact" class="btn btn-primary">
+                        Contáctame
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-graphic delay-3 fade-in">
+                <div class="bg-rotate"></div>
+                <div class="bg-main">
+                    <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color: var(--accent-primary);">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" style="background: var(--bg-card);">
+        <div class="section-container">
+            <h2 class="section-title font-display">
+                Sobre <span style="color: var(--accent-primary);">Mí</span>
+            </h2>
+            <div class="accent-line"></div>
+            <div class="about-grid">
+                <div class="about-content">
+                    <p>
+                        Sr. Consultant en Apex Systems, enfocado en crear soluciones innovadoras para proyectos de Disney, 
+                        donde desarrollo sistemas de extracción de datos en tiempo real y automatización de procesos.
+                    </p>
+                    <p>
+                        Con experiencia en liderazgo técnico y desarrollo full-stack, me especializo en construir 
+                        aplicaciones web escalables y sistemas complejos que combinan tecnologías modernas como 
+                        React, Node.js, y arquitecturas basadas en microservicios.
+                    </p>
+                    <p>
+                        Actualmente trabajando en MercadoTCG, un marketplace integral para el mercado mexicano de TCG, 
+                        donde aplico mi pasión por crear productos digitales que resuelven problemas reales.
+                    </p>
+                </div>
+                <div>
+                    <div class="stat-card">
+                        <div style="font-size: 2rem;">💼</div>
+                        <h3 class="font-display">Experiencia</h3>
+                        <p class="font-body">4+ años en desarrollo web profesional</p>
+                    </div>
+                    <div class="stat-card">
+                        <div style="font-size: 2rem;">👤</div>
+                        <h3 class="font-display">Enfoque</h3>
+                        <p class="font-body">Calidad de código y arquitecturas escalables</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="section-container">
+            <h2 class="section-title font-display">
+                Proyectos <span style="color: var(--accent-primary);">Destacados</span>
+            </h2>
+            <div class="accent-line"></div>
+            
+            <div class="projects-grid">
+                <div class="project-card featured">
+                    <div style="margin-bottom: 1rem;">
+                        <h3 class="font-display">MercadoTCG</h3>
+                    </div>
+                    <p class="font-body">
+                        Desarrollo de plataforma completa de marketplace para Trading Card Games en el mercado mexicano. Implementé un sistema de autenticación de tres niveles (usuario, vendedor, administrador), integración con Pokemon TCG API para catálogos automatizados, gestión de inventario en tiempo real y sistema de transacciones. Construido con arquitectura MERN usando Next.js 15, TypeScript para type-safety, y MongoDB Atlas para escalabilidad.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Next.js 15</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">MERN Stack</span>
+                    </div>
+                </div>
+
+                <div class="project-card featured">
+                    <div style="margin-bottom: 1rem;">
+                        <h3 class="font-display">Sports Broadcasting Automation - Disney</h3>
+                    </div>
+                    <p class="font-body">
+                        Creé un sistema automatizado de extracción y procesamiento de datos deportivos en tiempo real para generar gráficos personalizados en transmisiones en vivo. Desarrollé workflows con n8n que extraen estadísticas de MLB, NBA y NFL, las procesan con Node.js, y generan imágenes dinámicas. Implementé observabilidad completa con Datadog para tracing distribuido y monitoreo de performance.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">n8n</span>
+                        <span class="tech-tag">Datadog</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div style="margin-bottom: 1rem;">
+                        <h3 class="font-display">Data Pipeline Integration System</h3>
+                    </div>
+                    <p class="font-body">
+                        Diseñé e implementé pipelines de datos automatizados que sincronizan información entre Dropbox, Smartsheets y Datadog. Desarrollé módulos Node.js con JSDoc completo para mantener calidad de código, configuré trazabilidad HTTP centralizada para debugging, y optimicé procesos que reducen tiempo de procesamiento manual de 2 horas a 5 minutos. Incluye gestión de archivos Excel para programación de torneos con generación automática de PDFs.
+                    </p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">API Integration</span>
+                        <span class="tech-tag">Jest</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" style="background: var(--bg-card);">
+        <div class="section-container">
+            <h2 class="section-title font-display">
+                Habilidades <span style="color: var(--accent-primary);">&</span> Tecnologías
+            </h2>
+            <div class="accent-line"></div>
+            
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="font-display">Frontend</h3>
+                    <div class="skill-list">
+                        <div class="skill-badge">React</div>
+                        <div class="skill-badge">Next.js</div>
+                        <div class="skill-badge">TypeScript</div>
+                        <div class="skill-badge">Cypress</div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="font-display">Backend</h3>
+                    <div class="skill-list">
+                        <div class="skill-badge">Node.js</div>
+                        <div class="skill-badge">MongoDB</div>
+                        <div class="skill-badge">API Design</div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="font-display">DevOps</h3>
+                    <div class="skill-list">
+                        <div class="skill-badge">Docker</div>
+                        <div class="skill-badge">Datadog</div>
+                        <div class="skill-badge">n8n Automation</div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="font-display">Tools</h3>
+                    <div class="skill-list">
+                        <div class="skill-badge">Git</div>
+                        <div class="skill-badge">ESLint</div>
+                        <div class="skill-badge">Jest</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-container">
+            <h2 class="section-title font-display">
+                ¿Trabajamos <span style="color: var(--accent-primary);">Juntos?</span>
+            </h2>
+            <div class="accent-line mx-auto"></div>
+            <p>
+                Siempre abierto a nuevas oportunidades y colaboraciones. 
+                Si tienes un proyecto en mente, ¡hablemos!
+            </p>
+            
+            <div class="social-links">
+                <a href="mailto:tu@email.com" class="social-link">
+                    ✉️
+                </a>
+                <a href="https://github.com/tuusuario" target="_blank" rel="noopener noreferrer" class="social-link">
+                    🔗
+                </a>
+                <a href="https://linkedin.com/in/tuusuario" target="_blank" rel="noopener noreferrer" class="social-link">
+                    💼
+                </a>
+            </div>
+
+            <a href="mailto:tu@email.com" class="btn btn-primary" style="font-size: 1.125rem; padding: 1rem 3rem;">
+                Enviar Mensaje
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Jessen. Creado con HTML, CSS y mucho ☕</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Trigger fade-in animations on page load
+        window.addEventListener('load', function() {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+            });
+            
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in').forEach(el => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
